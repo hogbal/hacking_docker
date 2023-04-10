@@ -3,6 +3,7 @@
 해킹을 위한 환경 셋팅이 되어있는 docker image입니다.
 
 pwnable : ubuntu18.04, ubuntu20.04, ubuntu 22.04
+web : ubuntu20.04
 
 ## pwnable installed 
 * ropgadget
