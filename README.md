@@ -1,24 +1,47 @@
-# hacking_docker
+# hacking_tools
+
+## docker
 
 해킹을 위한 환경 셋팅이 되어있는 docker image입니다.
 
 - pwnable : ubuntu18.04, ubuntu20.04, ubuntu 22.04
 - web : ubuntu20.04
 
-## pwnable installed 
-* ropgadget
-* vim
-* tmux
-* pwntools
-* one gadget
-* checksec
-* oh my zsh(hogbal.zsh-theme)
-* patchelf
-* Pwngdb
+### pwnable installed
 
-## web installed
-* vim
-* tmux
-* oh my zsh(hogbal.zsh-theme)
-* Flask
-* selenium
+- ropgadget
+- vim
+- tmux
+- pwntools
+- one gadget
+- checksec
+- oh my zsh(hogbal.zsh-theme)
+- patchelf
+- Pwngdb
+
+### web installed
+
+- vim
+- tmux
+- oh my zsh(hogbal.zsh-theme)
+- Flask
+- selenium
+
+## setting
+
+리눅스 설정을 편하게 패주는 shell script입니다.(아직 테스트는 안해봄!)
+
+### init.sh
+
+- vim
+- tmux
+- oh my zsh
+- powerlevel10k
+
+### hacking_init.sh
+
+- pwntools
+- one_gadget
+- checksec
+- patchelf
+- pwndbg
