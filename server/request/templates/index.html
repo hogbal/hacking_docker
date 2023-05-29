@@ -1,72 +1,66 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/default.css') }}">
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
-<div class="left-box">
-	<div class="rtable-box">
-		<table id="rtable">
-			<thead>
-				<tr>
-					<th>시간</th>
-					<th>경로</th>
-					<th style="display:none;"></th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for data in request_data %}
-				<tr>
-					<td>{{data["time"]}}</td>
-					<td>{{data["method"] + " " + data["path"]}}</td>
-					<td id="rtable-idx" style="display:none;">{{data["idx"]}}</td>
-					<!-- <td id="rtable-addr" style="display:none;">{{data["remote_addr"]}}</td>
-					<td id="rtable-method" style="display:none;">{{data["method"]}}</td>
-					<td id="rtable-path" style="display:none;">{{data["path"]}}</td>
-					<td id="rtable-query" style="display:none;">{{data["query_string"]}}</td>
-					<td id="rtable-header" style="display:none;">{{data["headers"] | safe}}</td>
-					<td id="rtable-values" style="display:none;">{{data["values"]}}</td> -->
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>
+<div class="full-box">
+	<div class="left-box">
+		<div class="rtable-box">
+			<table class="rtable" id="rtable">
+				<thead class="rthead">
+					<tr class="rhtr">
+						<th class="rhtime">시간</th>
+						<th class="rhpath">경로</th>
+						<th style="display:none;"></th>
+					</tr>
+				</thead>
+				<tbody class="rthead">
+					{% for data in request_data %}
+					<tr class="rbtr">
+						<td class="rbtime">{{data["time"]}}</td>
+						<td class="rbpath">{{data["method"] + " " + data["path"]}}</td>
+						<td id="rtable-idx" style="display:none;">{{data["idx"]}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
 	</div>
-</div>
-<div class="right-box">
-	<div class="info-box">
-		<div class="myrequest-box">
-			<h1>Request</h1>
-			<table id="mtable">
-				<tbody>
-					<tr>
-						<td class="fheader">IP</td>
-						<td id="ip"></td>
-					</tr>
-					<tr>
-						<td class="fheader">Method</td>
-						<td id="method"></td>
-					</tr>
-					<tr>
-						<td class="fheader">Path</td>
-						<td id="path"></td>
-					</tr>
-					<tr>
-						<td class="fheader">Query</td>
-						<td id="query"></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="header-box">
-			<h1>Header</h1>
-			<table id="htable">
-				<tbody>
-					
-				</tbody>
-			</table>
-		</div>
-		<div class="body-box">
-			<h1>Body</h1>
-
-		</div>
-	</div> 
+	<div class="center-box"></div>
+	<div class="right-box">
+		<div class="info-box">
+			<div class="myrequest-box">
+				<h1>Request</h1>
+				<table class="mtable" id="mtable">
+					<tbody class="mtbody">
+						<tr class="mtr">
+							<td class="mheader">IP</td>
+							<td class="mvalue" id="ip"></td>
+						</tr>
+						<tr class="mtr">
+							<td class="mheader">Method</td>
+							<td class="mvalue" id="method"></td>
+						</tr>
+						<tr class="mtr">
+							<td class="mheader">Path</td>
+							<td class="mvalue" id="path"></td>
+						</tr>
+						<tr class="mtr">
+							<td class="mheader">Query</td>
+							<td class="mvalue" id="query"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="header-box">
+				<h1>Header</h1>
+				<table class="mtbody" id="htable">
+				</table>
+			</div>
+			<div class="body-box">
+				<h1>Body</h1>
+	
+			</div>
+		</div> 
+	</div>
 </div>
 
 <script>
@@ -79,7 +73,7 @@
         row.onclick = function(){ 
           return function(){ 
 			var idx = this.cells[2].innerHTML;
-			var url = "http://localhost:5000/request/"+idx;
+			var url = "http://localhost:8888/request/"+idx;
 
 			$.ajax({
 				type: 'POST',
@@ -87,19 +81,47 @@
             	dataType : 'JSON',
 				contentType: 'application/json',
 				success: function(data){
-					document.getElementById('ip').innerHTML = data["remote_addr"];
-					document.getElementById('method').innerHTML = data["method"];
-					document.getElementById('path').innerHTML = data["path"];
-					document.getElementById('query').innerHTML = data["query"];
+					if(data["remote_addr"] != null) {
+						document.getElementById('ip').innerHTML = data["remote_addr"];
+					}
+					if(data["method"] != null) {
+						document.getElementById('method').innerHTML = data["method"];
+					}
+					if(data["path"] != null) {
+						document.getElementById('path').innerHTML = data["path"];
+					}
+					if(data["query"] != null) {
+						document.getElementById('query').innerHTML = data["query"];
+					}
 					
+					var htable = document.getElementById('htable');
+					var orgTBODY = document.getElementById('tbody');
+					
+					if(orgTBODY != null){
+						htable.removeChild(orgTBODY);
+					}
+
+					var newTBODY = document.createElement('tbody');
+					newTBODY.setAttribute('id','tbody');
+					newTBODY.setAttribute('class','mtbody')
 					for (var key in data["headers"]) {
 						var newTR = document.createElement("tr");
 						var newTD1 = document.createElement("td");
 						var newTD2 = document.createElement("td");
+						
+						newTR.setAttribute('class','mtr');
 
 						newTD1.innerHTML = key;
-						newTD2.innerHTML = data[key];
+						newTD1.setAttribute('class','mheader');
+						newTD2.innerHTML = data["headers"][key];
+						newTD2.setAttribute('class','mvalue');
+
+						newTR.appendChild(newTD1);
+						newTR.appendChild(newTD2);
+
+						newTBODY.appendChild(newTR);
 					}
+					htable.append(newTBODY);
 				},
 				error: function(request, status, error){
 					alert('ajax error!');

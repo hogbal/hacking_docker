@@ -1,17 +1,102 @@
+.full-box {
+    background-color:rgb(189, 255, 255);
+}
+
 .left-box {
+    float: left;
+    width: 25%;
+    height: 100%;
+    background-color: white;
+    border: 1px solid black;
+    overflow:scroll;
+}
+
+.center-box {
     text-align:center; 
     float: left;
-    width: 30%;
-    background-color: aqua;
+    width: 1%;
+    height: 100%;
+    /* background-color:rgb(189, 255, 255); */
 }
 
 .right-box {
     float: left;
-    width: 70%;
-    background-color: bisque;
+    width: 73%;
+    height: 100%;
+    background-color: white;
+    border: 1px solid black;
+    overflow:scroll;
 }
 
 .rtable-box {
-    display:inline-block;
+    width: 100%;
 }
 
+.rtable {
+    width: 100%;
+}
+
+.rhtr {
+    width: 100%;
+    text-align:center; 
+}
+
+.rbtr {
+    width: 100%;
+    text-align:center; 
+}
+.rbtr:hover {
+    background-color:cornflowerblue;
+    color: white;
+}
+
+.rthead {
+    width: 100%;
+}
+
+.rhtime {
+    width: 40%;
+    color: darkgrey;
+}
+
+.rhpath {
+    width: 60%;
+    color: darkgrey;
+}
+
+.rbtime {
+    width: 40%;
+    font-size: large;
+    font-weight: bold;
+}
+
+.rbpath {
+    width: 60%;
+    font-size: large;
+    font-weight: bold;
+}
+
+.mtable {
+    width: 100%;
+}
+
+.mtbody {
+    width: 100%;
+}
+
+.mtr {
+    width: 100%;
+}
+
+.mheader {
+    width: 30%;
+    font-size: x-large;
+    font-weight: bolder;
+    color: cornflowerblue;
+}
+
+.mvalue {
+    width: 70%;
+    font-size: medium;
+    color: black;
+}
