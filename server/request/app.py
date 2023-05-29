@@ -1,5 +1,6 @@
+import json
 import datetime
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 
 app = Flask(__name__)
 
@@ -13,17 +14,24 @@ def index(subpath=None):
 	request_dict["remote_addr"] = request.remote_addr
 	request_dict["method"] = request.method
 	request_dict["path"] = request.path
-	request_dict["query_string"] = request.query_string
+	request_dict["query_string"] = request.query_string.decode()
 	
-	request_header = ""
+	request_header = {}
 	for key, value in request.headers:
-		request_header += f"{key} : {value}<br>"
+		request_header[key] = value
 	
 	request_dict["headers"] = request_header
 	request_dict["values"] = request.values.to_dict()
 	request_dict["time"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 	request_data.append(request_dict)
+
 	return "success"
+
+@app.route("/request/<int:idx>", methods=["POST"])
+def  request_info(idx):
+	# return jsonify(json.dumps(request_data[idx]))
+	return jsonify(request_data[idx])
+	
 
 @app.route("/request_list")
 def request_list():

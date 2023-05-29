@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/default.css') }}">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
 <div class="left-box">
 	<div class="rtable-box">
@@ -15,12 +16,13 @@
 				<tr>
 					<td>{{data["time"]}}</td>
 					<td>{{data["method"] + " " + data["path"]}}</td>
-					<td id="rtable-addr" style="display:none;">{{data["remote_addr"]}}</td>
+					<td id="rtable-idx" style="display:none;">{{data["idx"]}}</td>
+					<!-- <td id="rtable-addr" style="display:none;">{{data["remote_addr"]}}</td>
 					<td id="rtable-method" style="display:none;">{{data["method"]}}</td>
 					<td id="rtable-path" style="display:none;">{{data["path"]}}</td>
 					<td id="rtable-query" style="display:none;">{{data["query_string"]}}</td>
 					<td id="rtable-header" style="display:none;">{{data["headers"] | safe}}</td>
-					<td id="rtable-values" style="display:none;">{{data["values"]}}</td>
+					<td id="rtable-values" style="display:none;">{{data["values"]}}</td> -->
 				</tr>
 				{% endfor %}
 			</tbody>
@@ -72,21 +74,28 @@
   
         row.onclick = function(){ 
           return function(){ 
-			var remote_addr = this.cells[2].innerHTML;
-			var mothod = this.cells[3].innerHTML;
-			var path = this.cells[4].innerHTML;
-			var query = this.cells[5].innerHTML;
-			var headers = this.cells[6].innerHTML;
-			var values = this.cells[7].innerHTML;
+			var idx = this.cells[2].innerHTML;
+			var url = "http://localhost:5000/request/"+idx;
 
-			console.log(this.cells);
-
-            document.getElementById('ip').innerHTML = remote_addr;
-			document.getElementById('method').innerHTML = mothod;
-			document.getElementById('path').innerHTML = path;
-			document.getElementById('query').innerHTML = query;
-
-			document.getElementById('header').innerHTML = headers;
+			$.ajax({
+				type: 'POST',
+				url: url,
+            	dataType : 'JSON',
+				contentType: 'application/json',
+				success: function(data){
+					document.getElementById('ip').innerHTML = data["remote_addr"];
+					document.getElementById('method').innerHTML = data["method"];
+					document.getElementById('path').innerHTML = data["path"];
+					document.getElementById('query').innerHTML = data["query"];
+					
+					for (var key in data["headers"]) {
+						
+					}
+				},
+				error: function(request, status, error){
+					alert('ajax error!');
+				}
+			})
         }
       }(row);
     }
