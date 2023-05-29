@@ -56,7 +56,11 @@
 		</div>
 		<div class="header-box">
 			<h1>Header</h1>
-			<h3 id="header"></h3>
+			<table id="htable">
+				<tbody>
+					
+				</tbody>
+			</table>
 		</div>
 		<div class="body-box">
 			<h1>Body</h1>
@@ -89,7 +93,12 @@
 					document.getElementById('query').innerHTML = data["query"];
 					
 					for (var key in data["headers"]) {
-						
+						var newTR = document.createElement("tr");
+						var newTD1 = document.createElement("td");
+						var newTD2 = document.createElement("td");
+
+						newTD1.innerHTML = key;
+						newTD2.innerHTML = data[key];
 					}
 				},
 				error: function(request, status, error){

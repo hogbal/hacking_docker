@@ -29,7 +29,6 @@ def index(subpath=None):
 
 @app.route("/request/<int:idx>", methods=["POST"])
 def  request_info(idx):
-	# return jsonify(json.dumps(request_data[idx]))
 	return jsonify(request_data[idx])
 	
 
