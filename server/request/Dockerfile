@@ -4,7 +4,7 @@ COPY ./app.py /app/app.py
 COPY ./static /app/static
 COPY ./templates /app/templates
 
-RUN pip3 install flask
+RUN pip3 install flask flask-cors
 
 WORKDIR /app
 

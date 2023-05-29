@@ -73,7 +73,7 @@
         row.onclick = function(){ 
           return function(){ 
 			var idx = this.cells[2].innerHTML;
-			var url = "http://localhost:8888/request/"+idx;
+			var url = "http://hogbal.iptime.org:5000/request/"+idx;
 
 			$.ajax({
 				type: 'POST',
@@ -91,7 +91,7 @@
 						document.getElementById('path').innerHTML = data["path"];
 					}
 					if(data["query"] != null) {
-						document.getElementById('query').innerHTML = data["query"];
+						document.getElementById('query').innerHTML = data["query_string"];
 					}
 					
 					var htable = document.getElementById('htable');

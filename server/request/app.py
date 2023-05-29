@@ -1,8 +1,10 @@
 import json
 import datetime
+from flask_cors import CORS
 from flask import Flask, request, render_template, jsonify
 
 app = Flask(__name__)
+CORS(app)
 
 request_data = []
 
@@ -36,4 +38,4 @@ def request_info(idx):
 def request_list():
 	return render_template("index.html", request_data=request_data)
 
-app.run(host="0.0.0.0", port=8888)
+app.run(host="0.0.0.0", port=5000)
