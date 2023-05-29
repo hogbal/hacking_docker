@@ -45,3 +45,15 @@
 - checksec
 - patchelf
 - pwndbg
+
+## server
+
+각종 해킹을 도와주는 서버가 있습니다.
+
+### request
+
+XSS cookie 탈취를 위한 서버
+
+### BaseUri
+
+CSP 우회 - Base uri를 이용해 CSP를 우회할 때 사용하는 서버
