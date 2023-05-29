@@ -1,1 +1,93 @@
-HELLO HOGBAL
+<link rel="stylesheet" href="{{ url_for('static', filename='css/default.css') }}">
+
+<div class="left-box">
+	<div class="rtable-box">
+		<table id="rtable">
+			<thead>
+				<tr>
+					<th>시간</th>
+					<th>경로</th>
+					<th style="display:none;"></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for data in request_data %}
+				<tr>
+					<td>{{data["time"]}}</td>
+					<td>{{data["method"] + " " + data["path"]}}</td>
+					<td id="rtable-addr" style="display:none;">{{data["remote_addr"]}}</td>
+					<td id="rtable-method" style="display:none;">{{data["method"]}}</td>
+					<td id="rtable-path" style="display:none;">{{data["path"]}}</td>
+					<td id="rtable-query" style="display:none;">{{data["query_string"]}}</td>
+					<td id="rtable-header" style="display:none;">{{data["headers"] | safe}}</td>
+					<td id="rtable-values" style="display:none;">{{data["values"]}}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+<div class="right-box">
+	<div class="info-box">
+		<div class="myrequest-box">
+			<h1>Request</h1>
+			<table id="mtable">
+				<tbody>
+					<tr>
+						<td class="fheader">IP</td>
+						<td id="ip"></td>
+					</tr>
+					<tr>
+						<td class="fheader">Method</td>
+						<td id="method"></td>
+					</tr>
+					<tr>
+						<td class="fheader">Path</td>
+						<td id="path"></td>
+					</tr>
+					<tr>
+						<td class="fheader">Query</td>
+						<td id="query"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="header-box">
+			<h1>Header</h1>
+			<h3 id="header"></h3>
+		</div>
+		<div class="body-box">
+			<h1>Body</h1>
+
+		</div>
+	</div> 
+</div>
+
+<script>
+    var table =document.getElementById('rtable');
+    var rowList = table.rows;
+    
+    for (i=1; i<rowList.length; i++) {
+        var row = rowList[i];
+  
+        row.onclick = function(){ 
+          return function(){ 
+			var remote_addr = this.cells[2].innerHTML;
+			var mothod = this.cells[3].innerHTML;
+			var path = this.cells[4].innerHTML;
+			var query = this.cells[5].innerHTML;
+			var headers = this.cells[6].innerHTML;
+			var values = this.cells[7].innerHTML;
+
+			console.log(this.cells);
+
+            document.getElementById('ip').innerHTML = remote_addr;
+			document.getElementById('method').innerHTML = mothod;
+			document.getElementById('path').innerHTML = path;
+			document.getElementById('query').innerHTML = query;
+
+			document.getElementById('header').innerHTML = headers;
+        }
+      }(row);
+    }
+</script>  

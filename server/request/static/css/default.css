@@ -1,0 +1,17 @@
+.left-box {
+    text-align:center; 
+    float: left;
+    width: 30%;
+    background-color: aqua;
+}
+
+.right-box {
+    float: left;
+    width: 70%;
+    background-color: bisque;
+}
+
+.rtable-box {
+    display:inline-block;
+}
+
