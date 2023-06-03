@@ -38,4 +38,4 @@ def request_info(idx):
 def request_list():
 	return render_template("index.html", request_data=request_data)
 
-app.run(host="0.0.0.0", port=5000)
+app.run(host="0.0.0.0", port=5000, debug=True)

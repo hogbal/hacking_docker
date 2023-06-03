@@ -2,7 +2,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
 <div class="full-box">
-	<div class="left-box">
+	<div class="left-box" id="left-box">
 		<div class="rtable-box">
 			<table class="rtable" id="rtable">
 				<thead class="rthead">
@@ -62,6 +62,13 @@
 		</div> 
 	</div>
 </div>
+
+<script>
+    window.onload=function(){
+		let leftbox = document.getElementById("left-box"); 
+		leftbox.scrollTop = leftbox.scrollHeight;
+	};
+</script>
 
 <script>
     var table =document.getElementById('rtable');
